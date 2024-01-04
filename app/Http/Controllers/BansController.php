@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Path;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,9 +10,7 @@ class BansController extends Controller
 {
     public static function executeBan(Request $request)
     {
-        $user = User::firstOrCreate([
-            'username' => $request->username
-        ]);
+        $user = UserController::addUserDatabase($request);
 
         $path = 'users/' . $user->username;
         if (!Storage::disk('local')->exists($path)) {
@@ -23,9 +19,7 @@ class BansController extends Controller
 
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
-                $databasePath = Path::create([
-                    'user_id' => $user->id
-                ]);
+                $databasePath = PathController::addPathDatabase($request, $user);
                 $filename = $databasePath->id . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs($path, $filename, 'local');
                 $databasePath->update([
@@ -36,12 +30,10 @@ class BansController extends Controller
 
         if($request->has('urls')){
             foreach ($request->urls as $url){
-                $databasePath = Path::create([
-                    'user_id' => $user->id
-                ]);
+                $databasePath = PathController::addPathDatabase($request, $user);
                 $contents = file_get_contents($url);
                 $filename = $databasePath->id . '.' .  pathinfo($url, PATHINFO_EXTENSION);
-                Storage::put($path . $filename, $contents);
+                StorageController::addStorage($path, $filename, $contents);
                 $path = storage_path($path . $filename);
                 $databasePath->update([
                     'path' => $path
