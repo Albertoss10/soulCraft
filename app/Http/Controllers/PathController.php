@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Path;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PathController extends Controller
 {
@@ -13,5 +14,13 @@ class PathController extends Controller
         return Path::create([
             'user_id' => $user->id
         ]);
+    }
+
+    public static function getPathsUser($id) {
+        return Path::select('id', 'path', 'user_id', DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d %H:%i") as formatted_date'))
+            ->where('user_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy('formatted_date');
     }
 }

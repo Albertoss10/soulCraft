@@ -13,36 +13,24 @@ class BansController extends Controller
         $user = UserController::addUserDatabase($request);
 
         $path = 'users/' . $user->username;
-        if (!Storage::disk('local')->exists($path)) {
-            Storage::disk('local')->makeDirectory($path);
+        if (!Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->makeDirectory($path);
         }
 
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
+        if ($request->hasFile('file0')) {
+            foreach ($request->file() as $file) {
                 $databasePath = PathController::addPathDatabase($request, $user);
                 $filename = $databasePath->id . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs($path, $filename, 'local');
+                $updatedPath = $file->storeAs($path, $filename, 'public');
                 $databasePath->update([
-                    'path' => $path
+                    'path' => $updatedPath
                 ]);
-            }
-        }
-
-        if($request->has('urls')){
-            foreach ($request->urls as $url){
-                $databasePath = PathController::addPathDatabase($request, $user);
-                $contents = file_get_contents($url);
-                $filename = $databasePath->id . '.' .  pathinfo($url, PATHINFO_EXTENSION);
-                StorageController::addStorage($path, $filename, $contents);
-                $path = storage_path($path . $filename);
-                $databasePath->update([
-                    'path' => $path
-                ]);
+                $user->touch();
             }
         }
     }
 
-    public static function unban()
+    public static function unban(Request $request)
     {
 
     }

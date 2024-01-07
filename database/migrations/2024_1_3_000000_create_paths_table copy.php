@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('paths', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->text('path');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('id')->primary();
+            $table->text('path')->nullable();
+            $table->uuid('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

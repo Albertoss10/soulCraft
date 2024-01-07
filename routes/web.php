@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BansController;
+use App\Http\Controllers\PathController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -16,7 +18,7 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    $users = User::all();
+    $users = UserController::all();
 
     return view('bans', [
         'users' => $users
@@ -24,12 +26,13 @@ Route::get('/', function () {
 });
 
 Route::get('/{user}', function ($id) {
+
     return view('ban', [
-        'user' => User::find($id)
+        'user' => UserController::find($id),
+        'paths' => PathController::getPathsUser($id)
     ]);
 });
 
 Route::post('/user/executeBan', [BansController::class, 'executeBan']
-
 
 );

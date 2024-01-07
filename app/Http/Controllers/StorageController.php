@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class StorageController extends Controller
 {
-    public static function addStorage($path, $filename, $contents)
+    public static function put($path, $contents): void
     {
-        Storage::put($path . $filename, $contents);
+        Storage::put($path, $contents);
     }
 }

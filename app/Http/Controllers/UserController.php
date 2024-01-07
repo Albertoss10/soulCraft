@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public static function all()
+    {
+        return User::all();
+    }
+
+
+    public static function find($id)
+    {
+        return User::find($id);
+    }
+
     public static function addUserDatabase($request)
     {
         return User::firstOrCreate([
