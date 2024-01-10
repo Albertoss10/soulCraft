@@ -17,8 +17,12 @@ class User extends Model
     {
         return User::query()
             ->orderBy('updated_at', 'desc')
-            ->paginate(9)
-        ;
+            ->paginate(9);
     }
 
+    public static function allUsers($columns = ['*'])
+    {
+        return User::query()
+            ->orderBy('updated_at', 'desc');
+    }
 }

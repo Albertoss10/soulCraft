@@ -28,7 +28,7 @@ class UpdateSkins extends Command
      */
     public function handle(): void
     {
-        $users = UserController::all();
+        $users = UserController::allUsers();
         foreach($users as $user){
             $response = Http::get("https://mc-heads.net/avatar/$user->username/100.png");
             if ($response->successful()) {
