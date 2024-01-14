@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <a href="/"><span class="cerrar">&times;</span></a>
-        <img class="soulcraft" src="{{ Storage::url('soulCraft/soulcraft.png') }}" width="100" height="100">
+        <img class="soulcraft" src="{{ resource_path() . 'soulCraft/logo.png' }}" width="100" height="100">
         <h1 class="nick">{{ $user->username }}</h1>
         <img class="skin" src="{{ Storage::url('userSkins/' . $user->username . '.png') }}" width="100" height="100">
     </div>
