@@ -12,7 +12,7 @@
 </head>
 
 <body style="background-color: #333333;">
-<img class="logo" src="{{ resource_path() . 'soulcraft/logo.png' }}" width="100" height="100">
+<img class="logo" src="{{ resource_path() . '/soulcraft/logo.png' }}" width="100" height="100">
 
 <div class="container">
     <header>
