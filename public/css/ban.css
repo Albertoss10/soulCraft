@@ -53,10 +53,13 @@ body {
     left: 24rem;
 }
 
+.reports {
+    margin-top: 10rem;
+}
+
 .bans {
     max-width: 60rem;
     margin-left: 29rem;
-    margin-top: 10rem;
 }
 
 .ban {
