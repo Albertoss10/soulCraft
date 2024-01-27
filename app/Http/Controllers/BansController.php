@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,5 +34,16 @@ class BansController extends Controller
     public static function unban(Request $request)
     {
 
+    }
+
+    public static function showUserBanHistory(String $username){
+        if(User::where('username', $username)->count() > 0) {
+            return view('ban', [
+                'user' => UserController::find($username),
+                'paths' => PathController::getPathsUser($username)
+            ]);
+        } else {
+            abort(404);
+        }
     }
 }

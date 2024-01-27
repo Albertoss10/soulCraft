@@ -25,17 +25,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/{user}', function ($username) {
-    if(User::where('username', $username)->count() > 0) {
-        return view('ban', [
-            'user' => UserController::find($username),
-            'paths' => PathController::getPathsUser($username)
-        ]);
-    } else {
-        abort(404);
-    }
-});
+Route::get('/{user}', [BansController::class, 'showUserBanHistory']);
 
-Route::post('/user/executeBan', [BansController::class, 'executeBan']
-
-);
+Route::post('/user/executeBan', [BansController::class, 'executeBan']);
