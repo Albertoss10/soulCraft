@@ -26,11 +26,14 @@ Route::get('/', function () {
 });
 
 Route::get('/{user}', function ($id) {
-
-    return view('ban', [
-        'user' => UserController::find($id),
-        'paths' => PathController::getPathsUser($id)
-    ]);
+    if(User::where('username', $id)->count() > 0) {
+        return view('ban', [
+            'user' => UserController::find($id),
+            'paths' => PathController::getPathsUser($id)
+        ]);
+    } else {
+        return 404;
+    }
 });
 
 Route::post('/user/executeBan', [BansController::class, 'executeBan']

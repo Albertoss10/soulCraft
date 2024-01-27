@@ -20,7 +20,7 @@ class UserController extends Controller
 
     public static function find($id)
     {
-        return User::find($id);
+        return User::where('username', $id);
     }
 
     public static function addUserDatabase($request)

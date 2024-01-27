@@ -27,7 +27,7 @@
             <div class="user-card">
                 <img class="skin" src="https://mc-heads.net/avatar/{{$user->username}}/100.png" width="100"
                      height="100">
-                <a class="nick" href="/{{ $user->id }}">{{ $user->username }}</a>
+                <a class="nick" href="/{{ $user->username }}">{{ $user->username }}</a>
             </div>
         @endforeach
     </div>
