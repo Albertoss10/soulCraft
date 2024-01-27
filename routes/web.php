@@ -25,11 +25,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/{user}', function ($id) {
-    if(User::where('username', $id)->count() > 0) {
+Route::get('/{user}', function ($username) {
+    if(User::where('username', $username)->count() > 0) {
         return view('ban', [
-            'user' => UserController::find($id),
-            'paths' => PathController::getPathsUser($id)
+            'user' => UserController::find($username),
+            'paths' => PathController::getPathsUser($username)
         ]);
     } else {
         return 404;
