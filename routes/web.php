@@ -32,7 +32,7 @@ Route::get('/{user}', function ($username) {
             'paths' => PathController::getPathsUser($username)
         ]);
     } else {
-        return 404;
+        return response(404);
     }
 });
 
