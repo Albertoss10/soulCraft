@@ -25,7 +25,7 @@
     <div class="user-grid">
         @foreach ($users as $user)
             <div class="user-card">
-                <img class="skin" src="{{ Storage::url('userSkins/' . $user->username . '.png') }}" width="100"
+                <img class="skin" src="https://mc-heads.net/avatar/{{$user->username}}/100.png" width="100"
                      height="100">
                 <a class="nick" href="/{{ $user->id }}">{{ $user->username }}</a>
             </div>
